@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 # Load data dari CSV
 @st.cache
 def load_data(file_path):
-    data = pd.read_csv("ecommerce.csv")
+    data = pd.read_csv(file_path)
     return data
 
 file_path = "ecommerce.csv"  # Ganti dengan path file CSV Anda
@@ -46,6 +46,16 @@ st.write('## Informasi Pelanggan Pembelian Berulang')
 st.write(f"Jumlah Pelanggan Pembelian Berulang: {repeat_customers}")
 st.write(f"Total Jumlah Pelanggan: {total_customers}")
 st.write(f"Persentase Pelanggan Pembelian Berulang: {repeat_customer_percentage:.2f}%")
+
+# Plot persentase pelanggan pembelian berulang
+fig_percentage, ax_percentage = plt.subplots()
+labels = ['Pelanggan Pembelian Berulang', 'Pelanggan Non-Berulang']
+sizes = [repeat_customers, total_customers - repeat_customers]
+colors = ['#ff9999','#66b3ff']
+ax_percentage.pie(sizes, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+ax_percentage.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+ax_percentage.set_title('Persentase Pelanggan Pembelian Berulang')
+st.pyplot(fig_percentage)
 
 # Kesimpulan pertanyaan kedua
 st.write("""
